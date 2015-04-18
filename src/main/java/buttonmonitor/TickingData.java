@@ -7,8 +7,9 @@ public class TickingData {
 	private String tickMac;
 	private double secondsLeft;
 	private DateTime now;
-	
-	TickingData(int participants, String tickMac, double secondsLeft, DateTime now) {
+
+	TickingData(int participants, String tickMac, double secondsLeft,
+			DateTime now) {
 		this.participants = participants;
 		this.tickMac = tickMac;
 		this.secondsLeft = secondsLeft;
@@ -30,9 +31,11 @@ public class TickingData {
 	public DateTime getNow() {
 		return now;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "{participants: " + participants + ",tickMac: " + tickMac + ",secondsleft: " + secondsLeft + ",now: " + now.toString(ButtonWebSocketListener.TIME_FORMAT);
+		return "{participants: " + participants + ",tickMac: " + tickMac
+				+ ",secondsleft: " + secondsLeft + ",now: "
+				+ now.toString(ButtonWebSocketListener.TIME_FORMAT);
 	}
 }
