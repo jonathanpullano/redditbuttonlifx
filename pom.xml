@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pullano</groupId>
 	<artifactId>redditbuttonlifx</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>redditbuttonlifx</name>
 	<description>Controls your LIFX bulbs based on the state of The Button</description>
 	<dependencies>
