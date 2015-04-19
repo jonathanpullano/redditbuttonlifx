@@ -96,8 +96,7 @@ public class ButtonWebSocketListener implements OnTextMessage {
 			hue = Lights.COLOR.ORANGE.getHue();
 		else
 			hue = Lights.COLOR.RED.getHue();
-		float brightness = (float) ((data.getSecondsLeft() - 1) % 10) / 10;
 		Lights.getInstance().setColor(
-				LFXHSBKColor.getColor(hue, 1.0f, brightness, 3500));
+				LFXHSBKColor.getColor(hue, 1.0f, 1.0f, 3500));
 	}
 }
