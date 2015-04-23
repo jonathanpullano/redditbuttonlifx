@@ -2,7 +2,6 @@ package lights;
 
 import lifx.java.android.client.LFXClient;
 import lifx.java.android.entities.LFXHSBKColor;
-import lifx.java.android.entities.LFXTypes.LFXPowerState;
 import lifx.java.android.light.LFXLight;
 import lifx.java.android.network_context.LFXNetworkContext;
 import android.content.Context;
@@ -22,7 +21,7 @@ public class Lights {
 	 * Represents the colors of the button, with corresponding hue values
 	 */
 	public enum COLOR {
-		PURPLE(300), BLUE(180), GREEN(120), YELLOW(60), ORANGE(30), RED(0);
+		PURPLE(300), BLUE(240), GREEN(120), YELLOW(60), ORANGE(30), RED(0);
 
 		private int hue;
 
