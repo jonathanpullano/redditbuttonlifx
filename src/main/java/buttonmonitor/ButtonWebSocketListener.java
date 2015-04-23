@@ -83,15 +83,15 @@ public class ButtonWebSocketListener implements OnTextMessage {
 	public void processTicking(TickingData data) {
 		LOG.info("Ticking Message Received, Remaining Seconds={}", data.getSecondsLeft());
 		int hue;
-		if (data.getSecondsLeft() > 50)
+		if (data.getSecondsLeft() > 51)
 			hue = Lights.COLOR.PURPLE.getHue();
-		else if (data.getSecondsLeft() > 40)
+		else if (data.getSecondsLeft() > 41)
 			hue = Lights.COLOR.BLUE.getHue();
-		else if (data.getSecondsLeft() > 30)
+		else if (data.getSecondsLeft() > 31)
 			hue = Lights.COLOR.GREEN.getHue();
-		else if (data.getSecondsLeft() > 20)
+		else if (data.getSecondsLeft() > 21)
 			hue = Lights.COLOR.YELLOW.getHue();
-		else if (data.getSecondsLeft() > 10)
+		else if (data.getSecondsLeft() > 11)
 			hue = Lights.COLOR.ORANGE.getHue();
 		else
 			hue = Lights.COLOR.RED.getHue();
