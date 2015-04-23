@@ -13,10 +13,11 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.websocket.WebSocket.OnTextMessage;
 import org.eclipse.jetty.websocket.WebSocketClient;
 import org.eclipse.jetty.websocket.WebSocketClientFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import buttonmonitor.exception.CouldNotFindWebsocketException;
 
@@ -31,7 +32,7 @@ public class ButtonMonitor {
 	private static final String CHROME_USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36";
 	private static final Pattern WEBSOCKET_REGEX = Pattern
 			.compile("wss://wss.redditmedia.com/thebutton\\?h=[0-9a-f]*&e=[0-9a-f]*");
-	private static final Logger LOG = Logger.getLogger(ButtonMonitor.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ButtonMonitor.class);
 	private static final WebSocketClientFactory factory = new WebSocketClientFactory();
 
 	/**
@@ -45,7 +46,7 @@ public class ButtonMonitor {
 	public String getButtonWebsocketUrl() throws IOException,
 			CouldNotFindWebsocketException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		LOG.info("Connecting to " + THE_BUTTON_SUBREDDIT_URL);
+		LOG.info("Connecting to {}", THE_BUTTON_SUBREDDIT_URL);
 		HttpGet httpGet = new HttpGet(THE_BUTTON_SUBREDDIT_URL);
 		httpGet.setHeader("User-Agent", CHROME_USER_AGENT);
 		CloseableHttpResponse response = httpclient.execute(httpGet);
@@ -67,8 +68,7 @@ public class ButtonMonitor {
 	private String findWebSocketUrlInEntity(HttpEntity entity)
 			throws CouldNotFindWebsocketException, IOException {
 		String responseBody = convertStreamToString(entity.getContent());
-		if (LOG.isDebugEnabled())
-			LOG.debug("Response Body:\n" + responseBody);
+		LOG.debug("Response Body:\n {}", responseBody);
 		Matcher matcher = WEBSOCKET_REGEX.matcher(responseBody);
 		if (!matcher.find())
 			throw new CouldNotFindWebsocketException();
@@ -95,7 +95,7 @@ public class ButtonMonitor {
 	 */
 	public void openWebSocket(String redditUrl, OnTextMessage websocketListener)
 			throws Exception, IOException {
-		LOG.info("Opening websocket connection to: " + redditUrl);
+		LOG.info("Opening websocket connection to: {}", redditUrl);
 		factory.start();
 		WebSocketClient client = factory.newWebSocketClient();
 		try {

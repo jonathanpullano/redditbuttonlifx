@@ -6,18 +6,19 @@ import java.text.ParseException;
 import lifx.java.android.entities.LFXHSBKColor;
 import lights.Lights;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.websocket.WebSocket.OnTextMessage;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ButtonWebSocketListener implements OnTextMessage {
 
 	public final static String TIME_FORMAT = "yyyy-mm-dd-HH-mm-ss";
 
-	private final static Logger LOG = Logger
+	private final static Logger LOG = LoggerFactory
 			.getLogger(ButtonWebSocketListener.class);
 
 	public ButtonWebSocketListener() {
@@ -65,8 +66,7 @@ public class ButtonWebSocketListener implements OnTextMessage {
 			throws ParseException {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern(TIME_FORMAT);
 		JSONObject payload = jsonMessage.getJSONObject("payload");
-		if (LOG.isDebugEnabled())
-			LOG.debug(payload);
+		LOG.debug("Payload: {}", payload);
 		int participants = NumberFormat.getNumberInstance(java.util.Locale.US)
 				.parse(payload.getString("participants_text")).intValue();
 		String tickMac = payload.getString("tick_mac");
@@ -81,8 +81,7 @@ public class ButtonWebSocketListener implements OnTextMessage {
 	 * @param data
 	 */
 	public void processTicking(TickingData data) {
-		LOG.info("Ticking Message Received, Remaining Seconds="
-				+ data.getSecondsLeft());
+		LOG.info("Ticking Message Received, Remaining Seconds={}", data.getSecondsLeft());
 		int hue;
 		if (data.getSecondsLeft() > 50)
 			hue = Lights.COLOR.PURPLE.getHue();
